@@ -170,7 +170,7 @@ class Processor
      */
     protected function hit(string $key, int $expire): array
     {
-        if ('OK' === (string) $this->client->set(
+        if (true === (bool) $this->client->set(
             self::KEY_PREFIX . $key,
             $token = uniqid(mt_rand()),
             static::EXPIRE_TYPE,
