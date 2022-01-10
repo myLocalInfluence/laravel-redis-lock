@@ -2,7 +2,7 @@
 
 namespace RedisLock;
 
-use Predis\ClientInterface;
+use Illuminate\Redis\RedisManager;
 use RedisLock\LuaScripts;
 
 /**
@@ -22,7 +22,7 @@ class Processor
     /**
      * Predis Client.
      *
-     * @var \Predis\ClientInterface
+     * @var RedisManager
      */
     private $client;
 
@@ -42,13 +42,11 @@ class Processor
     private $retryDelay = 200;
 
     /**
-     * This params from service provider.
-     *
-     * @param \Predis\ClientInterface $client
+     * @param RedisManager $client
      * @param int|null $retryCount
      * @param int|null $retryDelay
      */
-    public function __construct(ClientInterface $client, int $retryCount = null, int $retryDelay = null)
+    public function __construct(RedisManager $client, int $retryCount = null, int $retryDelay = null)
     {
         $this->client = $client;
         $this->retryCount = $retryCount;

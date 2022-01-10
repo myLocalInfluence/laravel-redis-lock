@@ -28,13 +28,13 @@ class RedisLockServiceProvider extends ServiceProvider
             $config = $app['config']['redislock'];
 
             if ($this->versionCompare('5.4', '>=')) {
-                $predisClient = $app['redis']->connection($config['connection'])->client();
+                $phpRedisClient = $app['redis']->connection($config['connection'])->client();
             } else {
-                $predisClient = $app['redis']->connection($config['connection']);
+                $phpRedisClient = $app['redis']->connection($config['connection']);
             }
 
             return new Processor(
-                $predisClient,
+                $phpRedisClient,
                 $config['retry_count'],
                 $config['retry_delay']
             );
